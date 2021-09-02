@@ -51,7 +51,7 @@ const Login = (): React.ReactElement => {
   }
 
   const submitForm = () => {
-    const isFormFilled = !email.errorMessage && !password.errorMessage
+    const isFormFilled = email.value && password.value
     if (!isFormFilled) return
     console.log(email, password)
   }
