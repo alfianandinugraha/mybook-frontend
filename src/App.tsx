@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core'
 const App = (): React.ReactElement => (
   <Container>
     <Switch>
-      <Route path="/" exact>
+      <Route path="/login" exact>
         <Login />
       </Route>
     </Switch>
