@@ -36,6 +36,13 @@ const Login = (): React.ReactElement => {
     setEmail(payload)
   }
 
+  const inputPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword({
+      ...password,
+      value: e.target.value,
+    })
+  }
+
   const submitForm = () => {
     console.log(email, password)
   }
@@ -68,12 +75,7 @@ const Login = (): React.ReactElement => {
           helperText={password.errorMessage}
           className={classes.textField}
           value={password.value}
-          onChange={(e) => {
-            setPassword({
-              ...password,
-              value: e.target.value,
-            })
-          }}
+          onChange={inputPasswordHandler}
         />
       </Grid>
       <Grid item>
