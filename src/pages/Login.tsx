@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import { InputState } from 'ApiState'
 import isEmail from 'validator/lib/isEmail'
+import useHistoryPusher from '@/hooks/useHistoryPusher'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -24,6 +25,7 @@ const Login = (): React.ReactElement => {
     value: '',
     errorMessage: '',
   })
+  const push = useHistoryPusher()
   const classes = useClasses()
 
   const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +95,14 @@ const Login = (): React.ReactElement => {
             </Button>
           </Grid>
           <Grid item>
-            <Typography style={{ cursor: 'pointer' }}>Register</Typography>
+            <Typography
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                push('REGISTER')
+              }}
+            >
+              Register
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
