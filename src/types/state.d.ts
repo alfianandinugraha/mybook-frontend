@@ -3,4 +3,10 @@ declare module 'ApiState' {
     value: string
     errorMessage: string
   }
+
+  export type HistoryPushType = 'LOGIN' | 'REGISTER' | 'HOME'
+
+  type HistoryRouteMap = {
+    [K in HistoryPushType]: string
+  }
 }
