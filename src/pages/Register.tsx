@@ -38,10 +38,12 @@ const Register = (): React.ReactElement => {
 
   const inputFullnameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    setFullname({
-      ...fullname,
+    const payload = {
       value,
-    })
+      errorMessage: '',
+    }
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setFullname(payload)
   }
 
   const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
