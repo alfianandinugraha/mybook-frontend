@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core'
 import Home from '@/pages/Home'
 
 const App = (): React.ReactElement => (
-  <Container>
+  <Container maxWidth="md">
     <Switch>
       <Route path="/login" exact>
         <Login />
