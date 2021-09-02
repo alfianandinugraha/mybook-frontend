@@ -88,6 +88,9 @@ const Register = (): React.ReactElement => {
           placeholder="Your full name"
           type="text"
           className={classes.textField}
+          error={!!fullname.errorMessage}
+          helperText={fullname.errorMessage}
+          value={fullname.value}
           onChange={inputFullnameHandler}
         />
       </Grid>
@@ -111,6 +114,9 @@ const Register = (): React.ReactElement => {
           placeholder="********"
           type="password"
           className={classes.textField}
+          error={!!password.errorMessage}
+          helperText={password.errorMessage}
+          value={password.value}
           onChange={inputPasswordHandler}
         />
       </Grid>
@@ -121,6 +127,9 @@ const Register = (): React.ReactElement => {
           placeholder="********"
           type="password"
           className={classes.textField}
+          error={!!rePassword.errorMessage}
+          helperText={rePassword.errorMessage}
+          value={rePassword.value}
           onChange={inputRePasswordHandler}
         />
       </Grid>
