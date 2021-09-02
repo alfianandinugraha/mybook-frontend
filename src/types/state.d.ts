@@ -9,4 +9,12 @@ declare module 'ApiState' {
   type HistoryRouteMap = {
     [K in HistoryPushType]: string
   }
+
+  export interface Book {
+    id: string
+    userId: string
+    title: string
+    description: string
+    authors: string[]
+  }
 }
