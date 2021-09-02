@@ -60,18 +60,22 @@ const Register = (): React.ReactElement => {
 
   const inputPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    setPassword({
-      ...password,
+    const payload = {
       value,
-    })
+      errorMessage: '',
+    }
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setPassword(payload)
   }
 
   const inputRePasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    setRePassword({
-      ...rePassword,
+    const payload = {
       value,
-    })
+      errorMessage: '',
+    }
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setRePassword(payload)
   }
 
   const submitFormRegisterHandler = () => {
