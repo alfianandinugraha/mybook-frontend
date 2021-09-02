@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import useHistoryPusher from '@/hooks/useHistoryPusher'
 import { InputState } from 'ApiState'
+import isEmail from 'validator/lib/isEmail'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -45,10 +46,14 @@ const Register = (): React.ReactElement => {
 
   const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    setEmail({
-      ...email,
+    const isValidEmail = isEmail(value)
+    const payload = {
       value,
-    })
+      errorMessage: '',
+    }
+    if (!isValidEmail) payload.errorMessage = 'Please input email correctly'
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setEmail(payload)
   }
 
   const inputPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +98,9 @@ const Register = (): React.ReactElement => {
           placeholder="your@email.com"
           type="email"
           className={classes.textField}
+          error={!!email.errorMessage}
+          helperText={email.errorMessage}
+          value={email.value}
           onChange={inputEmailHandler}
         />
       </Grid>
