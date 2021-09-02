@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Bootstrap from '@/Bootstrap'
 import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Bootstrap>
+      <App />
+    </Bootstrap>
   </React.StrictMode>,
   document.getElementById('root'),
   undefined
