@@ -79,6 +79,17 @@ const Register = (): React.ReactElement => {
   }
 
   const submitFormRegisterHandler = () => {
+    const isFormFilled =
+      fullname.value && email.value && password.value && rePassword.value
+    const isFormValid =
+      !email.errorMessage &&
+      !email.errorMessage &&
+      !password.errorMessage &&
+      !rePassword.errorMessage
+
+    if (!isFormFilled || !isFormValid) {
+      return
+    }
     console.log({ fullname, email, password, rePassword })
   }
 
