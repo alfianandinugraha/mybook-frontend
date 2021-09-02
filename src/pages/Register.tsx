@@ -65,6 +65,11 @@ const Register = (): React.ReactElement => {
       errorMessage: '',
     }
     if (!value) payload.errorMessage = 'Please fill this input'
+    else if (value === rePassword.value)
+      setRePassword({
+        ...rePassword,
+        errorMessage: '',
+      })
     setPassword(payload)
   }
 
@@ -75,6 +80,8 @@ const Register = (): React.ReactElement => {
       errorMessage: '',
     }
     if (!value) payload.errorMessage = 'Please fill this input'
+    else if (value !== password.value)
+      payload.errorMessage = 'Password not same'
     setRePassword(payload)
   }
 
