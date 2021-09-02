@@ -62,6 +62,9 @@ const config = {
     'import/first': 'error',
     'import/no-unresolved': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
+    'react/prop-types': 'off',
+    'react/destructuring-assignment': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 }
 
