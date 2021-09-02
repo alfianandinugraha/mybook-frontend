@@ -61,6 +61,7 @@ const config = {
     'import/order': 'error',
     'import/first': 'error',
     'import/no-unresolved': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
   },
 }
 
