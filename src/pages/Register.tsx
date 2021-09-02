@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Grid,
@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import useHistoryPusher from '@/hooks/useHistoryPusher'
+import { InputState } from 'ApiState'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -15,8 +16,60 @@ const useClasses = makeStyles(() => ({
 }))
 
 const Register = (): React.ReactElement => {
+  const [fullname, setFullname] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
+  const [email, setEmail] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
+  const [password, setPassword] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
+  const [rePassword, setRePassword] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
   const push = useHistoryPusher()
   const classes = useClasses()
+
+  const inputFullnameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setFullname({
+      ...fullname,
+      value,
+    })
+  }
+
+  const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setEmail({
+      ...email,
+      value,
+    })
+  }
+
+  const inputPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setPassword({
+      ...password,
+      value,
+    })
+  }
+
+  const inputRePasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setRePassword({
+      ...rePassword,
+      value,
+    })
+  }
+
+  const submitFormRegisterHandler = () => {
+    console.log({ fullname, email, password, rePassword })
+  }
 
   return (
     <Grid container direction="column" style={{ width: '25%' }}>
@@ -30,6 +83,7 @@ const Register = (): React.ReactElement => {
           placeholder="Your full name"
           type="text"
           className={classes.textField}
+          onChange={inputFullnameHandler}
         />
       </Grid>
       <Grid item>
@@ -39,6 +93,7 @@ const Register = (): React.ReactElement => {
           placeholder="your@email.com"
           type="email"
           className={classes.textField}
+          onChange={inputEmailHandler}
         />
       </Grid>
       <Grid item>
@@ -48,6 +103,7 @@ const Register = (): React.ReactElement => {
           placeholder="********"
           type="password"
           className={classes.textField}
+          onChange={inputPasswordHandler}
         />
       </Grid>
       <Grid item>
@@ -57,12 +113,17 @@ const Register = (): React.ReactElement => {
           placeholder="********"
           type="password"
           className={classes.textField}
+          onChange={inputRePasswordHandler}
         />
       </Grid>
       <Grid item>
         <Grid container alignItems="center">
           <Grid item style={{ marginRight: '1rem' }}>
-            <Button color="primary" variant="contained">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={submitFormRegisterHandler}
+            >
               Register
             </Button>
           </Grid>
