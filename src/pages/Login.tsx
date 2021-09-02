@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { InputState } from 'ApiState'
+import isEmail from 'validator/lib/isEmail'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -24,6 +25,16 @@ const Login = (): React.ReactElement => {
     errorMessage: '',
   })
   const classes = useClasses()
+
+  const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isValidEmail = isEmail(e.target.value)
+    const payload = {
+      value: e.target.value,
+      errorMessage: '',
+    }
+    if (!isValidEmail) payload.errorMessage = 'Please input email correctly'
+    setEmail(payload)
+  }
 
   const submitForm = () => {
     console.log(email, password)
@@ -44,12 +55,7 @@ const Login = (): React.ReactElement => {
           helperText={email.errorMessage}
           className={classes.textField}
           value={email.value}
-          onChange={(e) => {
-            setEmail({
-              ...email,
-              value: e.target.value,
-            })
-          }}
+          onChange={inputEmailHandler}
         />
       </Grid>
       <Grid item>
@@ -64,7 +70,7 @@ const Login = (): React.ReactElement => {
           value={password.value}
           onChange={(e) => {
             setPassword({
-              ...email,
+              ...password,
               value: e.target.value,
             })
           }}
