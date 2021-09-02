@@ -27,23 +27,30 @@ const Login = (): React.ReactElement => {
   const classes = useClasses()
 
   const inputEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isValidEmail = isEmail(e.target.value)
+    const newEmail = e.target.value
+    const isValidEmail = isEmail(newEmail)
     const payload = {
-      value: e.target.value,
+      value: newEmail,
       errorMessage: '',
     }
     if (!isValidEmail) payload.errorMessage = 'Please input email correctly'
+    if (!newEmail) payload.errorMessage = 'Please fill this input'
     setEmail(payload)
   }
 
   const inputPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword({
-      ...password,
-      value: e.target.value,
-    })
+    const newPassword = e.target.value
+    const payload = {
+      value: newPassword,
+      errorMessage: '',
+    }
+    if (!newPassword) payload.errorMessage = 'Please fill this input'
+    setPassword(payload)
   }
 
   const submitForm = () => {
+    const isFormFilled = !email.errorMessage && !password.errorMessage
+    if (!isFormFilled) return
     console.log(email, password)
   }
 
