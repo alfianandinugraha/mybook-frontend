@@ -12,10 +12,12 @@ import { InputState } from 'ApiState'
 import generateRandom from '@/helpers/random'
 
 interface AddBookDrawerProps extends DrawerProps {
-  onClickClose: () => void
+  onClickClose?: () => void
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
+  const drawerProps = { ...props }
+  delete drawerProps.onClickClose
   const [title, setTitle] = useState<InputState>({
     value: '',
     errorMessage: '',
@@ -70,7 +72,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   }
 
   return (
-    <Drawer anchor="right" {...props}>
+    <Drawer anchor="right" {...drawerProps}>
       <Paper
         elevation={0}
         style={{
@@ -164,7 +166,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
               color="secondary"
               variant="outlined"
               onClick={() => {
-                props.onClickClose()
+                if (props.onClickClose) props.onClickClose()
               }}
             >
               Close
