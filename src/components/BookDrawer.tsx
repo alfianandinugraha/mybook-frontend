@@ -16,8 +16,6 @@ interface AddBookDrawerProps extends DrawerProps {
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
-  const drawerProps = { ...props }
-  delete drawerProps.onClickClose
   const [title, setTitle] = useState<InputState>({
     value: '',
     errorMessage: '',
@@ -70,6 +68,9 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   const submitAddBookHandler = () => {
     console.log(authors)
   }
+
+  const drawerProps = { ...props }
+  delete drawerProps.onClickClose
 
   return (
     <Drawer anchor="right" {...drawerProps}>
