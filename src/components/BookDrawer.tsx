@@ -18,17 +18,27 @@ interface AddBookDrawerProps extends DrawerProps {
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
+  const getInitialAuthorMap = useMemo(() => {
+    if (props.bookPayload) {
+      return props.bookPayload.authors.map((author) => ({
+        id: generateRandom(),
+        value: author,
+        errorMessage: '',
+      }))
+    }
+
+    return []
+  }, [props.bookPayload])
+
   const [title, setTitle] = useState<InputState>({
-    value: '',
+    value: props.bookPayload ? props.bookPayload.title : '',
     errorMessage: '',
   })
   const [description, setDescription] = useState<InputState>({
-    value: '',
+    value: props.bookPayload ? props.bookPayload.description : '',
     errorMessage: '',
   })
-  const [authors, setAuthors] = useState<InputState[]>([
-    { id: generateRandom(), value: '', errorMessage: '' },
-  ])
+  const [authors, setAuthors] = useState<InputState[]>(getInitialAuthorMap)
 
   const inputTitleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
