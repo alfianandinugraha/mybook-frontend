@@ -16,9 +16,23 @@ interface AddBookDrawerProps extends DrawerProps {
 }
 
 const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
+  const [title, setTitle] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
   const [authors, setAuthors] = useState<InputState[]>([
     { id: generateRandom(), value: '', errorMessage: '' },
   ])
+
+  const inputTitleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    const payload: InputState = {
+      value,
+      errorMessage: '',
+    }
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setTitle(payload)
+  }
 
   const removeAuthor = (id: string) => {
     if (authors.length === 1) return
@@ -55,7 +69,15 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
             <Typography variant="h4">Add Book</Typography>
           </Grid>
           <Grid item>
-            <TextField fullWidth label="Title" placeholder="Hello world !" />
+            <TextField
+              fullWidth
+              label="Title"
+              placeholder="Hello world !"
+              onChange={inputTitleHandler}
+              error={!!title.errorMessage}
+              helperText={title.errorMessage}
+              value={title.value}
+            />
           </Grid>
           <Grid item>
             <TextField
