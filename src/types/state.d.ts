@@ -1,5 +1,6 @@
 declare module 'ApiState' {
   export interface InputState {
+    id?: string
     value: string
     errorMessage: string
   }
