@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { Book } from 'ApiState'
 import BookItem from '@/components/BookItem'
+import AddBookDrawer from '@/components/AddBookDrawer'
 
 const generateBook = (
   title: string,
@@ -23,25 +24,43 @@ const books: Book[] = [
   generateBook('Hello', 'Hello world', ['alfian', 'andi']),
 ]
 
-const Home = (): React.ReactElement => (
-  <Grid container direction="column">
-    <Grid item>
-      <Typography variant="h4">MyBooks</Typography>
-      <Typography>Welcome, Alfian</Typography>
-    </Grid>
-    <Grid item>
-      <Button color="primary" variant="contained">
-        Add
-      </Button>
-    </Grid>
-    <Grid item style={{ marginTop: '1rem' }}>
-      <Grid container spacing={3}>
-        {books.map((book) => (
-          <BookItem {...book} key={book.id} />
-        ))}
+const Home = (): React.ReactElement => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  return (
+    <>
+      <Grid container direction="column">
+        <Grid item>
+          <Typography variant="h4">MyBooks</Typography>
+          <Typography>Welcome, Alfian</Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              setIsDrawerOpen(true)
+            }}
+          >
+            Add
+          </Button>
+        </Grid>
+        <Grid item style={{ marginTop: '1rem' }}>
+          <Grid container spacing={3}>
+            {books.map((book) => (
+              <BookItem {...book} key={book.id} />
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
-    </Grid>
-  </Grid>
-)
+      <AddBookDrawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        onClickClose={() => setIsDrawerOpen(false)}
+      />
+    </>
+  )
+}
 
 export default Home
