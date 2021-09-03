@@ -20,6 +20,10 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     value: '',
     errorMessage: '',
   })
+  const [description, setDescription] = useState<InputState>({
+    value: '',
+    errorMessage: '',
+  })
   const [authors, setAuthors] = useState<InputState[]>([
     { id: generateRandom(), value: '', errorMessage: '' },
   ])
@@ -32,6 +36,16 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     }
     if (!value) payload.errorMessage = 'Please fill this input'
     setTitle(payload)
+  }
+
+  const inputDescriptionHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    const payload: InputState = {
+      value,
+      errorMessage: '',
+    }
+    if (!value) payload.errorMessage = 'Please fill this input'
+    setDescription(payload)
   }
 
   const removeAuthor = (id: string) => {
@@ -84,6 +98,10 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
               fullWidth
               label="Description"
               placeholder="Hello world this is description !"
+              onChange={inputDescriptionHandler}
+              error={!!description.errorMessage}
+              helperText={description.errorMessage}
+              value={description.value}
             />
           </Grid>
           <Grid item>
