@@ -18,4 +18,10 @@ declare module 'ApiState' {
     description: string
     authors: string[]
   }
+
+  export interface BookFormPayload {
+    title: string
+    description: string
+    authors: string[]
+  }
 }
