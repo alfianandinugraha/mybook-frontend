@@ -8,12 +8,13 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { InputState } from 'ApiState'
+import { BookDrawerPayload, InputState } from 'ApiState'
 import generateRandom from '@/helpers/random'
 
 interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
   type?: 'ADD' | 'UPDATE'
+  bookPayload?: BookDrawerPayload
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
@@ -78,6 +79,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   const drawerProps = { ...props }
   delete drawerProps.onClickClose
   delete drawerProps.type
+  delete drawerProps.bookPayload
 
   return (
     <Drawer anchor="right" {...drawerProps}>

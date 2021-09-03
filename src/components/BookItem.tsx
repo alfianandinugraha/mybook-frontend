@@ -49,6 +49,7 @@ const BookItem = (props: BookItemProps): React.ReactElement => {
       <BookDrawer
         open={isDrawerOpen}
         type="UPDATE"
+        bookPayload={props}
         onClose={() => setIsDrawerOpen(false)}
         onClickClose={() => setIsDrawerOpen(false)}
       />
