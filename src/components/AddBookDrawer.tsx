@@ -124,9 +124,19 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
                     label="Author"
                     placeholder="Alfian"
                     value={author.value}
+                    error={!!author.errorMessage}
+                    helperText={author.errorMessage}
                     onChange={(e) => {
                       const newAuthors = [...authors]
-                      newAuthors[idx].value = e.target.value
+                      const { value } = e.target
+                      const payload: InputState = {
+                        id: author.id,
+                        value,
+                        errorMessage: '',
+                      }
+                      if (!value)
+                        payload.errorMessage = 'Please fill this input'
+                      newAuthors[idx] = payload
                       setAuthors(newAuthors)
                     }}
                   />
