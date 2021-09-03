@@ -56,6 +56,7 @@ const Home = (): React.ReactElement => {
       <BookDrawer
         anchor="right"
         open={isDrawerOpen}
+        type="ADD"
         onClose={() => setIsDrawerOpen(false)}
         onClickClose={() => setIsDrawerOpen(false)}
       />

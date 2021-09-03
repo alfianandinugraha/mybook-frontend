@@ -13,6 +13,7 @@ import generateRandom from '@/helpers/random'
 
 interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
+  type?: 'ADD' | 'UPDATE'
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
@@ -71,6 +72,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
 
   const drawerProps = { ...props }
   delete drawerProps.onClickClose
+  delete drawerProps.type
 
   return (
     <Drawer anchor="right" {...drawerProps}>
