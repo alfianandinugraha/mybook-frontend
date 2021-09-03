@@ -4,9 +4,11 @@ import Bootstrap from '@/Bootstrap'
 import App from './App'
 
 ReactDOM.render(
-  <Bootstrap>
-    <App />
-  </Bootstrap>,
+  <React.StrictMode>
+    <Bootstrap>
+      <App />
+    </Bootstrap>
+  </React.StrictMode>,
   document.getElementById('root'),
   undefined
 )
