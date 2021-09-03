@@ -65,6 +65,8 @@ const config = {
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/no-unused-prop-types': 'off',
   },
 }
 
