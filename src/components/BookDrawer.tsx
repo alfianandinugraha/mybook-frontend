@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   Button,
   Drawer,
@@ -70,6 +70,11 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     console.log(authors)
   }
 
+  const drawerTitle = useMemo(
+    () => (props.type === 'ADD' ? 'Add Book' : 'Update Book'),
+    [props.type]
+  )
+
   const drawerProps = { ...props }
   delete drawerProps.onClickClose
   delete drawerProps.type
@@ -85,7 +90,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
       >
         <Grid container direction="column" spacing={3}>
           <Grid item>
-            <Typography variant="h4">Add Book</Typography>
+            <Typography variant="h4">{drawerTitle}</Typography>
           </Grid>
           <Grid item>
             <TextField
@@ -163,7 +168,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
                 marginRight: '1rem',
               }}
             >
-              Add Book
+              {drawerTitle}
             </Button>
             <Button
               color="secondary"
