@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { Book } from 'ApiState'
 import BookItem from '@/components/BookItem'
-import AddBookDrawer from '@/components/AddBookDrawer'
+import BookDrawer from '@/components/BookDrawer'
 
 const generateBook = (
   title: string,
@@ -53,7 +53,7 @@ const Home = (): React.ReactElement => {
           </Grid>
         </Grid>
       </Grid>
-      <AddBookDrawer
+      <BookDrawer
         anchor="right"
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}

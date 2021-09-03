@@ -15,7 +15,7 @@ interface AddBookDrawerProps extends DrawerProps {
   onClickClose: () => void
 }
 
-const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
+const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   const [title, setTitle] = useState<InputState>({
     value: '',
     errorMessage: '',
@@ -176,4 +176,4 @@ const AddBookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   )
 }
 
-export default AddBookDrawer
+export default BookDrawer
