@@ -68,6 +68,8 @@ const config = {
     'react/require-default-props': 'off',
     'react/no-unused-prop-types': 'off',
     'no-alert': 'off',
+    'no-underscore-dangle': 'off',
+    'consistent-return': 'off',
   },
 }
 
