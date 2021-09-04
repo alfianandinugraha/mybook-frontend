@@ -67,6 +67,7 @@ const config = {
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
     'react/no-unused-prop-types': 'off',
+    'no-alert': 'off',
   },
 }
 
