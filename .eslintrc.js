@@ -46,7 +46,7 @@ const config = {
     ],
     semi: 'off',
     '@typescript-eslint/semi': 'off',
-    'arrow-body-style': ['error', 'as-needed'],
+    'arrow-body-style': ['off', 'as-needed'],
     '@typescript-eslint/comma-dangle': [
       'error',
       {
