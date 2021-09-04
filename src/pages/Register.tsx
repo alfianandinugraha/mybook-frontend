@@ -9,6 +9,9 @@ import {
 import useHistoryPusher from '@/hooks/useHistoryPusher'
 import { InputState } from 'ApiState'
 import isEmail from 'validator/lib/isEmail'
+import { RegisterBody } from 'HTTPApi'
+import HttpService from '@/services/utils/http'
+import AuthService from '@/services/http/auth'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -97,7 +100,19 @@ const Register = (): React.ReactElement => {
     if (!isFormFilled || !isFormValid) {
       return
     }
-    console.log({ fullname, email, password, rePassword })
+    const registerBody: RegisterBody = {
+      name: fullname.value,
+      email: email.value,
+      password: password.value,
+    }
+
+    AuthService.register(registerBody)
+      .then(() => {
+        console.log('register success')
+      })
+      .catch((err) => {
+        alert(err.message)
+      })
   }
 
   return (
