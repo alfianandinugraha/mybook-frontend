@@ -9,8 +9,14 @@ declare module 'HTTPApi' {
     password: string
   }
 
+  export interface RegisterBody extends LoginBody {
+    name: string
+  }
+
   export interface LoginData {
     accessToken: string
     refreshToken: string
   }
+
+  export interface RegisterData extends LoginData {}
 }
