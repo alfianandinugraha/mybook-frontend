@@ -35,9 +35,27 @@ const register = async (body: RegisterBody): Promise<void> => {
   }
 }
 
+const requestAccessToken = async (): Promise<void> => {
+  try {
+    const { data } = await HttpService.auth.post(
+      '/access',
+      {},
+      {
+        headers: {
+          Authorization: `bearer ${CookieService.getRefreshToken()}`,
+        },
+      }
+    )
+    CookieService.setAccessToken(data.data.accessToken)
+  } catch (err) {
+    throw err.response ? new Error(err.response.data.message) : err
+  }
+}
+
 const AuthService = {
   login,
   register,
+  requestAccessToken,
 }
 
 export default AuthService
