@@ -9,6 +9,7 @@ import {
 import { InputState } from 'ApiState'
 import isEmail from 'validator/lib/isEmail'
 import useHistoryPusher from '@/hooks/useHistoryPusher'
+import AuthService from '@/services/http/auth'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -53,7 +54,14 @@ const Login = (): React.ReactElement => {
   const submitForm = () => {
     const isFormFilled = email.value && password.value
     if (!isFormFilled) return
-    console.log(email, password)
+
+    AuthService.login(email.value, password.value)
+      .then(() => {
+        console.log('Login success')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (
