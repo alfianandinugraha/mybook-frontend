@@ -18,8 +18,7 @@ const login = async (email: string, password: string): Promise<void> => {
     const { accessToken, refreshToken } = data.data
     CookieService.setToken(accessToken, refreshToken)
   } catch (err) {
-    console.error(err)
-    throw new Error('Login failed')
+    throw err.response ? new Error(err.response.data.message) : err
   }
 }
 
