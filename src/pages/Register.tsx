@@ -10,7 +10,6 @@ import useHistoryPusher from '@/hooks/useHistoryPusher'
 import { InputState } from 'ApiState'
 import isEmail from 'validator/lib/isEmail'
 import { RegisterBody } from 'HTTPApi'
-import HttpService from '@/services/utils/http'
 import AuthService from '@/services/http/auth'
 
 const useClasses = makeStyles(() => ({
