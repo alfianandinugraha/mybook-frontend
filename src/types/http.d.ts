@@ -19,4 +19,10 @@ declare module 'HTTPApi' {
   }
 
   export interface RegisterData extends LoginData {}
+
+  export interface UserData {
+    id: string
+    name: string
+    email: string
+  }
 }
