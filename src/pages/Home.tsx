@@ -1,32 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Grid, Typography } from '@material-ui/core'
 import { Book } from 'ApiState'
 import BookItem from '@/components/BookItem'
 import BookDrawer from '@/components/BookDrawer'
-
-const generateBook = (
-  title: string,
-  description: string,
-  authors: string[]
-): Book => ({
-  id: Math.random().toString(),
-  userId: Math.random().toString(),
-  title,
-  description,
-  authors,
-})
-
-const initialBooks: Book[] = [
-  generateBook('Hello', 'Hello world', ['alfian', 'andi']),
-  generateBook('Hello', 'Hello world', ['alfian', 'andi']),
-  generateBook('Hello', 'Hello world', ['alfian', 'andi']),
-  generateBook('Hello', 'Hello world', ['alfian', 'andi']),
-  generateBook('Hello', 'Hello world', ['alfian', 'andi']),
-]
+import BookService from '@/services/http/book'
 
 const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [books, setBooks] = useState<Book[]>(initialBooks)
+  const [books, setBooks] = useState<Book[]>([])
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const { data } = await BookService.getAll()
+        setBooks(data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    fetchBooks()
+  }, [])
 
   return (
     <>
