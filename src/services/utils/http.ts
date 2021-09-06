@@ -18,6 +18,10 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (res: AxiosResponse) => res,
   async (axiosErr) => {
+    const refreshToken = CookieService.getRefreshToken()
+
+    if (!refreshToken) return Promise.reject(axiosErr)
+
     try {
       const newConfig = { ...axiosErr.config }
       if (!newConfig._retry) {
