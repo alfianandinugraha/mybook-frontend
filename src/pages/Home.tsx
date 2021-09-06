@@ -9,16 +9,16 @@ const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [books, setBooks] = useState<Book[]>([])
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const { data } = await BookService.getAll()
-        setBooks(data)
-      } catch (err) {
-        console.error(err)
-      }
+  const fetchBooks = async () => {
+    try {
+      const { data } = await BookService.getAll()
+      setBooks(data)
+    } catch (err) {
+      console.error(err)
     }
+  }
 
+  useEffect(() => {
     fetchBooks()
   }, [])
 
@@ -43,7 +43,18 @@ const Home = (): React.ReactElement => {
         <Grid item style={{ marginTop: '1rem' }}>
           <Grid container spacing={3}>
             {books.map((book) => (
-              <BookItem {...book} key={book.id} />
+              <BookItem
+                {...book}
+                key={book.id}
+                onDeleteClick={async (id) => {
+                  try {
+                    await BookService.delete(id)
+                    await fetchBooks()
+                  } catch (err) {
+                    alert(err.message)
+                  }
+                }}
+              />
             ))}
           </Grid>
         </Grid>
