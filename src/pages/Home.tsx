@@ -10,14 +10,18 @@ import { userAtom } from '@/store/user'
 const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [books, setBooks] = useState<Book[]>([])
+  const [isBooksFetching, setIsBookFetching] = useState(false)
   const [user] = useAtom(userAtom)
 
   const fetchBooks = async () => {
+    setIsBookFetching(true)
     try {
       const { data } = await BookService.getAll()
       setBooks(data)
     } catch (err) {
-      console.error(err)
+      setBooks([])
+    } finally {
+      setIsBookFetching(false)
     }
   }
 
@@ -69,12 +73,20 @@ const Home = (): React.ReactElement => {
         </Grid>
         <Grid item style={{ marginTop: '1rem' }}>
           <Grid container spacing={3}>
-            {books.length ? (
-              <ListBook />
-            ) : (
+            {isBooksFetching ? (
               <Grid item md={4}>
-                <Typography>Books not found</Typography>
+                <Typography>Fetching</Typography>
               </Grid>
+            ) : (
+              <>
+                {books.length ? (
+                  <ListBook />
+                ) : (
+                  <Grid item md={4}>
+                    <Typography>Books not found</Typography>
+                  </Grid>
+                )}
+              </>
             )}
           </Grid>
         </Grid>
