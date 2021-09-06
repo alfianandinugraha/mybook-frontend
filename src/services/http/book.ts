@@ -1,6 +1,5 @@
 import { ApiResponse, BookBody, BookData } from 'HTTPApi'
 import HttpService from '@/services/utils/http'
-import { Book } from 'ApiState'
 
 const store = async (book: BookBody): Promise<ApiResponse<BookData>> => {
   try {
@@ -23,9 +22,19 @@ const getAll = async (): Promise<ApiResponse<BookData[]>> => {
   }
 }
 
+const deleteBook = async (id: string): Promise<ApiResponse<null>> => {
+  try {
+    const { data } = await HttpService.delete<ApiResponse<null>>(`/books/${id}`)
+    return data
+  } catch (err) {
+    throw err.response ? new Error(err.response.data.message) : err
+  }
+}
+
 const BookService = {
   store,
   getAll,
+  delete: deleteBook,
 }
 
 export default BookService
