@@ -10,6 +10,9 @@ import { InputState } from 'ApiState'
 import isEmail from 'validator/lib/isEmail'
 import useHistoryPusher from '@/hooks/useHistoryPusher'
 import AuthService from '@/services/http/auth'
+import UserService from '@/services/http/user'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user'
 
 const useClasses = makeStyles(() => ({
   textField: {
@@ -26,6 +29,7 @@ const Login = (): React.ReactElement => {
     value: '',
     errorMessage: '',
   })
+  const [, setUser] = useAtom(userAtom)
   const push = useHistoryPusher()
   const classes = useClasses()
 
@@ -51,17 +55,17 @@ const Login = (): React.ReactElement => {
     setPassword(payload)
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     const isFormFilled = email.value && password.value
     if (!isFormFilled) return
 
-    AuthService.login(email.value, password.value)
-      .then(() => {
-        console.log('Login success')
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    try {
+      await AuthService.login(email.value, password.value)
+      const { data } = await UserService.currentUser()
+      setUser(data)
+    } catch (err) {
+      setUser(null)
+    }
   }
 
   return (
