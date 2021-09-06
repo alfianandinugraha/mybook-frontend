@@ -3,14 +3,18 @@ import { Book } from 'ApiState'
 import { Button, ButtonGroup, Grid, Typography } from '@material-ui/core'
 import BookDrawer from '@/components/BookDrawer'
 
-interface BookItemProps extends Book {}
+interface BookItemProps extends Book {
+  onDeleteClick?: (id: string) => void
+}
 
 const BookItem = (props: BookItemProps): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const mapAuthor = props.authors.reduce((pre, curr) => `${pre}, ${curr}`)
 
   const deleteHandler = () => {
-    console.log(`Deleting ${props.id}`)
+    if (props.onDeleteClick) {
+      props.onDeleteClick(props.id)
+    }
   }
 
   const updateHandler = () => {
