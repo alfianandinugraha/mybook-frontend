@@ -21,7 +21,10 @@ http.interceptors.response.use(
     const refreshToken = CookieService.getRefreshToken()
 
     if (!refreshToken) return Promise.reject(axiosErr)
-
+    if (axiosErr.response) {
+      const statusCode = axiosErr.response.status
+      if (statusCode !== 401) return Promise.reject(axiosErr)
+    }
     try {
       const newConfig = { ...axiosErr.config }
       if (!newConfig._retry) {
