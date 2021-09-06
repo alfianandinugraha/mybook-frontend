@@ -31,10 +31,26 @@ const deleteBook = async (id: string): Promise<ApiResponse<null>> => {
   }
 }
 
+const update = async (
+  id: string,
+  bookBody: BookBody
+): Promise<ApiResponse<BookData>> => {
+  try {
+    const { data } = await HttpService.put<ApiResponse<BookData>>(
+      `/books/${id}`,
+      bookBody
+    )
+    return data
+  } catch (err) {
+    throw err.response ? new Error(err.response.data.message) : err
+  }
+}
+
 const BookService = {
   store,
   getAll,
   delete: deleteBook,
+  update,
 }
 
 export default BookService
