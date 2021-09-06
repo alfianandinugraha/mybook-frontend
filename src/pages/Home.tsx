@@ -16,7 +16,7 @@ const generateBook = (
   authors,
 })
 
-const books: Book[] = [
+const initialBooks: Book[] = [
   generateBook('Hello', 'Hello world', ['alfian', 'andi']),
   generateBook('Hello', 'Hello world', ['alfian', 'andi']),
   generateBook('Hello', 'Hello world', ['alfian', 'andi']),
@@ -26,6 +26,7 @@ const books: Book[] = [
 
 const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [books, setBooks] = useState<Book[]>(initialBooks)
 
   return (
     <>
@@ -59,6 +60,10 @@ const Home = (): React.ReactElement => {
         type="ADD"
         onClose={() => setIsDrawerOpen(false)}
         onClickClose={() => setIsDrawerOpen(false)}
+        onFinishSubmit={(book) => {
+          const newBooks = [book, ...books]
+          setBooks(newBooks)
+        }}
       />
     </>
   )
