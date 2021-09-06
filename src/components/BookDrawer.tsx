@@ -15,7 +15,7 @@ import BookService from '@/services/http/book'
 
 interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
-  onFinishSubmit?: (book: Book) => void
+  onFinishAdd?: (book: Book) => void
   type?: 'ADD' | 'UPDATE'
   bookPayload?: BookDrawerPayload
 }
@@ -89,8 +89,8 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
 
     try {
       const { data } = await BookService.store(bookData)
-      if (props.onFinishSubmit && props.onClickClose) {
-        props.onFinishSubmit(data)
+      if (props.onFinishAdd && props.onClickClose) {
+        props.onFinishAdd(data)
         props.onClickClose()
       }
     } catch (err) {
@@ -125,7 +125,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   delete drawerProps.onClickClose
   delete drawerProps.type
   delete drawerProps.bookPayload
-  delete drawerProps.onFinishSubmit
+  delete drawerProps.onFinishAdd
 
   return (
     <Drawer anchor="right" {...drawerProps}>

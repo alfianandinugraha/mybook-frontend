@@ -65,7 +65,7 @@ const Home = (): React.ReactElement => {
         type="ADD"
         onClose={() => setIsDrawerOpen(false)}
         onClickClose={() => setIsDrawerOpen(false)}
-        onFinishSubmit={(book) => {
+        onFinishAdd={(book) => {
           const newBooks = [book, ...books]
           setBooks(newBooks)
         }}
