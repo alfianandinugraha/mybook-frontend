@@ -8,11 +8,14 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { BookDrawerPayload, InputState } from 'ApiState'
+import { Book, BookDrawerPayload, InputState } from 'ApiState'
 import generateRandom from '@/helpers/random'
+import { BookBody } from 'HTTPApi'
+import BookService from '@/services/http/book'
 
 interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
+  onFinishSubmit?: (book: Book) => void
   type?: 'ADD' | 'UPDATE'
   bookPayload?: BookDrawerPayload
 }
@@ -77,8 +80,40 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     ])
   }
 
-  const submitAddBookHandler = () => {
-    console.log(authors)
+  const addBookHandler = async () => {
+    const bookData: BookBody = {
+      title: title.value,
+      description: description.value,
+      authors: authors.map((author) => author.value),
+    }
+
+    try {
+      const { data } = await BookService.store(bookData)
+      if (props.onFinishSubmit && props.onClickClose) {
+        props.onFinishSubmit(data)
+        props.onClickClose()
+      }
+    } catch (err) {
+      alert('failed to store book')
+    }
+  }
+
+  const updateBookHandler = () => {}
+
+  const submitHandler = () => {
+    switch (props.type) {
+      case 'ADD': {
+        addBookHandler().then()
+        break
+      }
+      case 'UPDATE': {
+        updateBookHandler()
+        break
+      }
+      default: {
+        console.log('err')
+      }
+    }
   }
 
   const drawerTitle = useMemo(
@@ -90,6 +125,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   delete drawerProps.onClickClose
   delete drawerProps.type
   delete drawerProps.bookPayload
+  delete drawerProps.onFinishSubmit
 
   return (
     <Drawer anchor="right" {...drawerProps}>
@@ -175,7 +211,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
             <Button
               color="primary"
               variant="contained"
-              onClick={submitAddBookHandler}
+              onClick={submitHandler}
               style={{
                 marginRight: '1rem',
               }}
