@@ -25,6 +25,30 @@ const Home = (): React.ReactElement => {
     fetchBooks()
   }, [])
 
+  const ListBook = () => {
+    return (
+      <>
+        {books.map((book) => (
+          <BookItem
+            {...book}
+            key={book.id}
+            onFinishUpdate={async () => {
+              await fetchBooks()
+            }}
+            onDeleteClick={async (id) => {
+              try {
+                await BookService.delete(id)
+                await fetchBooks()
+              } catch (err) {
+                alert(err.message)
+              }
+            }}
+          />
+        ))}
+      </>
+    )
+  }
+
   return (
     <>
       <Grid container direction="column">
@@ -45,23 +69,13 @@ const Home = (): React.ReactElement => {
         </Grid>
         <Grid item style={{ marginTop: '1rem' }}>
           <Grid container spacing={3}>
-            {books.map((book) => (
-              <BookItem
-                {...book}
-                key={book.id}
-                onFinishUpdate={async () => {
-                  await fetchBooks()
-                }}
-                onDeleteClick={async (id) => {
-                  try {
-                    await BookService.delete(id)
-                    await fetchBooks()
-                  } catch (err) {
-                    alert(err.message)
-                  }
-                }}
-              />
-            ))}
+            {books.length ? (
+              <ListBook />
+            ) : (
+              <Grid item md={4}>
+                <Typography>Books not found</Typography>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>
