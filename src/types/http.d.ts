@@ -1,4 +1,6 @@
 declare module 'HTTPApi' {
+  import { Book } from 'ApiState'
+
   export interface ApiResponse<T> {
     message: string
     data: T
@@ -25,4 +27,12 @@ declare module 'HTTPApi' {
     name: string
     email: string
   }
+
+  export interface BookBody {
+    title: string
+    description: string
+    authors: string[]
+  }
+
+  export interface BookData extends Book {}
 }
