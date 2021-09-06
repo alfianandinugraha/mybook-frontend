@@ -4,10 +4,13 @@ import { Book } from 'ApiState'
 import BookItem from '@/components/BookItem'
 import BookDrawer from '@/components/BookDrawer'
 import BookService from '@/services/http/book'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user'
 
 const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [books, setBooks] = useState<Book[]>([])
+  const [user] = useAtom(userAtom)
 
   const fetchBooks = async () => {
     try {
@@ -27,7 +30,7 @@ const Home = (): React.ReactElement => {
       <Grid container direction="column">
         <Grid item>
           <Typography variant="h4">MyBooks</Typography>
-          <Typography>Welcome, Alfian</Typography>
+          <Typography>Welcome, {user ? user.name : 'guest'}</Typography>
         </Grid>
         <Grid item>
           <Button
