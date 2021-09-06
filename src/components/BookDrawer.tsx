@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { Book, BookDrawerPayload, InputState } from 'ApiState'
+import { Book, InputState } from 'ApiState'
 import generateRandom from '@/helpers/random'
 import { BookBody } from 'HTTPApi'
 import BookService from '@/services/http/book'
@@ -17,13 +17,13 @@ interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
   onFinishAdd?: (book: Book) => void
   type?: 'ADD' | 'UPDATE'
-  bookPayload?: BookDrawerPayload
+  initialBook?: Book
 }
 
 const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   const getInitialAuthorMap = useMemo(() => {
-    if (props.bookPayload) {
-      return props.bookPayload.authors.map((author) => ({
+    if (props.initialBook) {
+      return props.initialBook.authors.map((author) => ({
         id: generateRandom(),
         value: author,
         errorMessage: '',
@@ -31,14 +31,14 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     }
 
     return []
-  }, [props.bookPayload])
+  }, [props.initialBook])
 
   const [title, setTitle] = useState<InputState>({
-    value: props.bookPayload ? props.bookPayload.title : '',
+    value: props.initialBook ? props.initialBook.title : '',
     errorMessage: '',
   })
   const [description, setDescription] = useState<InputState>({
-    value: props.bookPayload ? props.bookPayload.description : '',
+    value: props.initialBook ? props.initialBook.description : '',
     errorMessage: '',
   })
   const [authors, setAuthors] = useState<InputState[]>(getInitialAuthorMap)
@@ -98,7 +98,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     }
   }
 
-  const updateBookHandler = () => {}
+  const updateBookHandler = async () => {}
 
   const submitHandler = () => {
     switch (props.type) {
@@ -124,7 +124,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   const drawerProps = { ...props }
   delete drawerProps.onClickClose
   delete drawerProps.type
-  delete drawerProps.bookPayload
+  delete drawerProps.initialBook
   delete drawerProps.onFinishAdd
 
   return (
