@@ -46,6 +46,9 @@ const Home = (): React.ReactElement => {
               <BookItem
                 {...book}
                 key={book.id}
+                onFinishUpdate={async () => {
+                  await fetchBooks()
+                }}
                 onDeleteClick={async (id) => {
                   try {
                     await BookService.delete(id)

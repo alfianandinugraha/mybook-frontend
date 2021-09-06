@@ -5,6 +5,7 @@ import BookDrawer from '@/components/BookDrawer'
 
 interface BookItemProps extends Book {
   onDeleteClick?: (id: string) => void
+  onFinishUpdate?: (book: Book) => void
 }
 
 const BookItem = (props: BookItemProps): React.ReactElement => {
@@ -56,6 +57,7 @@ const BookItem = (props: BookItemProps): React.ReactElement => {
         initialBook={props}
         onClose={() => setIsDrawerOpen(false)}
         onClickClose={() => setIsDrawerOpen(false)}
+        onFinishUpdate={props.onFinishUpdate}
       />
     </>
   )

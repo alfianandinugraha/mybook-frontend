@@ -16,6 +16,7 @@ import BookService from '@/services/http/book'
 interface AddBookDrawerProps extends DrawerProps {
   onClickClose?: () => void
   onFinishAdd?: (book: Book) => void
+  onFinishUpdate?: (book: Book) => void
   type?: 'ADD' | 'UPDATE'
   initialBook?: Book
 }
@@ -98,7 +99,25 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
     }
   }
 
-  const updateBookHandler = async () => {}
+  const updateBookHandler = async () => {
+    if (!props.initialBook) return
+
+    const bookData: BookBody = {
+      title: title.value,
+      description: description.value,
+      authors: authors.map((author) => author.value),
+    }
+
+    try {
+      const { data } = await BookService.update(props.initialBook.id, bookData)
+      if (props.onFinishUpdate && props.onClickClose) {
+        props.onFinishUpdate(data)
+        props.onClickClose()
+      }
+    } catch (err) {
+      alert('failed to store book')
+    }
+  }
 
   const submitHandler = () => {
     switch (props.type) {
@@ -107,7 +126,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
         break
       }
       case 'UPDATE': {
-        updateBookHandler()
+        updateBookHandler().then()
         break
       }
       default: {
@@ -126,6 +145,7 @@ const BookDrawer = (props: AddBookDrawerProps): React.ReactElement => {
   delete drawerProps.type
   delete drawerProps.initialBook
   delete drawerProps.onFinishAdd
+  delete drawerProps.onFinishUpdate
 
   return (
     <Drawer anchor="right" {...drawerProps}>
