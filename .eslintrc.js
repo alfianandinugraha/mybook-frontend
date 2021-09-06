@@ -70,6 +70,7 @@ const config = {
     'no-alert': 'off',
     'no-underscore-dangle': 'off',
     'consistent-return': 'off',
+    'import/prefer-default-export': 'off',
   },
 }
 
