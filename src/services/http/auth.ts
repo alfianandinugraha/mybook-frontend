@@ -52,10 +52,15 @@ const requestAccessToken = async (): Promise<void> => {
   }
 }
 
+const logout = (): void => {
+  CookieService.removeToken()
+}
+
 const AuthService = {
   login,
   register,
   requestAccessToken,
+  logout,
 }
 
 export default AuthService
