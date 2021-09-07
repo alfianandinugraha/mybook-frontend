@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Button, ButtonGroup, Grid, Typography } from '@material-ui/core'
 import { Book } from 'ApiState'
 import BookItem from '@/components/BookItem'
 import BookDrawer from '@/components/BookDrawer'
 import BookService from '@/services/http/book'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user'
+import AuthService from '@/services/http/auth'
+import useHistoryPusher from '@/hooks/useHistoryPusher'
 
 const Home = (): React.ReactElement => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [books, setBooks] = useState<Book[]>([])
   const [isBooksFetching, setIsBookFetching] = useState(false)
-  const [user] = useAtom(userAtom)
+  const [user, setUser] = useAtom(userAtom)
+  const pusher = useHistoryPusher()
 
   const fetchBooks = async () => {
     setIsBookFetching(true)
@@ -61,15 +64,28 @@ const Home = (): React.ReactElement => {
           <Typography>Welcome, {user ? user.name : 'guest'}</Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              setIsDrawerOpen(true)
-            }}
-          >
-            Add
-          </Button>
+          <ButtonGroup>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                setIsDrawerOpen(true)
+              }}
+            >
+              Add
+            </Button>
+            <Button
+              color="secondary"
+              variant="outlined"
+              onClick={() => {
+                AuthService.logout()
+                setUser(null)
+                pusher('LOGIN')
+              }}
+            >
+              Logout
+            </Button>
+          </ButtonGroup>
         </Grid>
         <Grid item style={{ marginTop: '1rem' }}>
           <Grid container spacing={3}>
