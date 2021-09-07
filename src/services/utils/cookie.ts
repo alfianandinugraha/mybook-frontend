@@ -26,12 +26,18 @@ const setToken = (accessToken: string, refreshToken: string): void => {
   setRefreshToken(refreshToken)
 }
 
+const removeToken = (): void => {
+  Cookie.remove(ACCESS_TOKEN)
+  Cookie.remove(REFRESH_TOKEN)
+}
+
 const CookieService = {
   getAccessToken,
   setAccessToken,
   getRefreshToken,
   setRefreshToken,
   setToken,
+  removeToken,
 }
 
 export default CookieService
